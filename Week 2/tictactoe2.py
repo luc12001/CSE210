@@ -1,8 +1,8 @@
 '''
-Example found online of another way to complete task. 
+More in depth version of tictactoe
 '''
 
-def print_tic_tac_toe(values):
+def printTicTacToe(values):
 	print("\n")
 	print("\t     |     |")
 	print("\t  {}  |  {}  |  {}".format(values[0], values[1], values[2]))
@@ -19,43 +19,43 @@ def print_tic_tac_toe(values):
 	print("\n")
 
 
-def print_scoreboard(score_board):
+def printScoreboard(scoreBoard):
 	print("\t--------------------------------")
 	print("\t       	   SCOREBOARD       ")
 	print("\t--------------------------------")
 
-	players = list(score_board.keys())
-	print("\t   ", players[0], "\t    ", score_board[players[0]])
-	print("\t   ", players[1], "\t    ", score_board[players[1]])
+	players = list(scoreBoard.keys())
+	print("\t   ", players[0], "\t    ", scoreBoard[players[0]])
+	print("\t   ", players[1], "\t    ", scoreBoard[players[1]])
 
 	print("\t--------------------------------\n")
 
-def check_win(player_pos, cur_player):
+def checkWin(playerPosition, currentPlayer):
 
 	soln = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
 
 	for x in soln:
-		if all(y in player_pos[cur_player] for y in x):
+		if all(y in playerPosition[currentPlayer] for y in x):
 
 			return True
 	return False		
 
-def check_draw(player_pos):
-	if len(player_pos['X']) + len(player_pos['O']) == 9:
+def checkDraw(playerPosition):
+	if len(playerPosition['X']) + len(playerPosition['O']) == 9:
 		return True
 	return False		
 
-def single_game(cur_player):
+def singleGame(currentPlayer):
 
 	values = [' ' for x in range(9)]
 	
-	player_pos = {'X':[], 'O':[]}
+	playerPosition = {'X':[], 'O':[]}
 	
 	while True:
-		print_tic_tac_toe(values)
+		printTicTacToe(values)
 		
 		try:
-			print("Player ", cur_player, " turn. Which box? : ", end="")
+			print("Player ", currentPlayer, " turn. Which box? : ", end="")
 			move = int(input())	
 		except ValueError:
 			print("Wrong Input!!! Try Again")
@@ -69,26 +69,26 @@ def single_game(cur_player):
 			print("Place already filled. Try again!!")
 			continue
 
-		values[move-1] = cur_player
+		values[move-1] = currentPlayer
 
-		player_pos[cur_player].append(move)
+		playerPosition[currentPlayer].append(move)
 
-		if check_win(player_pos, cur_player):
-			print_tic_tac_toe(values)
-			print("Player ", cur_player, " has won the game!!")		
+		if checkWin(playerPosition, currentPlayer):
+			printTicTacToe(values)
+			print("Player ", currentPlayer, " has won the game!!")		
 			print("\n")
-			return cur_player
+			return currentPlayer
 
-		if check_draw(player_pos):
-			print_tic_tac_toe(values)
+		if checkDraw(playerPosition):
+			printTicTacToe(values)
 			print("Game Drawn")
 			print("\n")
 			return 'D'
 
-		if cur_player == 'X':
-			cur_player = 'O'
+		if currentPlayer == 'X':
+			currentPlayer = 'O'
 		else:
-			cur_player = 'X'
+			currentPlayer = 'X'
 
 def main():
 
@@ -100,18 +100,18 @@ def main():
 	player2 = input("Enter the name : ")
 	print("\n")
 	
-	cur_player = player1
+	currentPlayer = player1
 
-	player_choice = {'X' : "", 'O' : ""}
+	playerchoice = {'X' : "", 'O' : ""}
 
 	options = ['X', 'O']
 
-	score_board = {player1: 0, player2: 0}
-	print_scoreboard(score_board)
+	scoreBoard = {player1: 0, player2: 0}
+	printScoreboard(scoreBoard)
 
 	while True:
 
-		print("Turn to choose for", cur_player)
+		print("Turn to choose for", currentPlayer)
 		print("Enter 1 for X")
 		print("Enter 2 for O")
 		print("Enter 3 to Quit")
@@ -123,38 +123,38 @@ def main():
 			continue
 
 		if choice == 1:
-			player_choice['X'] = cur_player
-			if cur_player == player1:
-				player_choice['O'] = player2
+			playerchoice['X'] = currentPlayer
+			if currentPlayer == player1:
+				playerchoice['O'] = player2
 			else:
-				player_choice['O'] = player1
+				playerchoice['O'] = player1
 
 		elif choice == 2:
-			player_choice['O'] = cur_player
-			if cur_player == player1:
-				player_choice['X'] = player2
+			playerchoice['O'] = currentPlayer
+			if currentPlayer == player1:
+				playerchoice['X'] = player2
 			else:
-				player_choice['X'] = player1
+				playerchoice['X'] = player1
 		
 		elif choice == 3:
 			print("Final Scores")
-			print_scoreboard(score_board)
+			printScoreboard(scoreBoard)
 			break	
 
 		else:
 			print("Wrong Choice!!!! Try Again\n")
 
-		winner = single_game(options[choice-1])
+		winner = singleGame(options[choice-1])
 		
 		if winner != 'D' :
-			player_won = player_choice[winner]
-			score_board[player_won] = score_board[player_won] + 1
+			playerWon = playerchoice[winner]
+			scoreBoard[playerWon] = scoreBoard[playerWon] + 1
 
-		print_scoreboard(score_board)
-		if cur_player == player1:
-			cur_player = player2
+		printScoreboard(scoreBoard)
+		if currentPlayer == player1:
+			currentPlayer = player2
 		else:
-			cur_player = player1
+			currentPlayer = player1
 
 if __name__ == "__main__":
     main()
