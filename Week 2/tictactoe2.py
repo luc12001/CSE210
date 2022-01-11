@@ -1,6 +1,5 @@
 '''
-Tic-Tac-Toe: A Solution
-Author: Brandon Luce
+Example found online of another way to complete task. 
 '''
 
 def print_tic_tac_toe(values):
