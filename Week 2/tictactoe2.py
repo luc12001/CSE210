@@ -90,7 +90,7 @@ def single_game(cur_player):
 		else:
 			cur_player = 'X'
 
-if __name__ == "__main__":
+def main():
 
 	print("Player 1")
 	player1 = input("Enter the name : ")
@@ -155,3 +155,6 @@ if __name__ == "__main__":
 			cur_player = player2
 		else:
 			cur_player = player1
+
+if __name__ == "__main__":
+    main()
