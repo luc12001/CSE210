@@ -1,99 +1,58 @@
-playBoard = {'7': ' ' , '8': ' ' , '9': ' ' ,
-            '4': ' ' , '5': ' ' , '6': ' ' ,
-            '1': ' ' , '2': ' ' , '3': ' ' }
+'''
+Tic-Tac-Toe: A Solution
+Author: Brandon Luce
+'''
 
-board_keys = []
+def main():
+    player = next_player("")
+    board = create_board()
+    while not (has_winner(board) or is_a_draw(board)):
+        display_board(board)
+        make_move(player, board)
+        player = next_player(player)
+    display_board(board)
+    print("Thanks for playing!") 
 
-for key in playBoard:
-    board_keys.append(key)
+def create_board():
+    board = []
+    for square in range(9):
+        board.append(square + 1)
+    return board
 
-def printBoard(board):
-    print(board['7'] + '|' + board['8'] + '|' + board['9'])
+def display_board(board):
+    print()
+    print(f"{board[0]}|{board[1]}|{board[2]}")
     print('-+-+-')
-    print(board['4'] + '|' + board['5'] + '|' + board['6'])
+    print(f"{board[3]}|{board[4]}|{board[5]}")
     print('-+-+-')
-    print(board['1'] + '|' + board['2'] + '|' + board['3'])
-
-def ticTacToe():
-
-    turn = 'X'
-    count = 0
-
-
-    for i in range(10):
-        printBoard(playBoard)
-        print("It's your turn," + turn + ".Move to which place?")
-
-        move = input()        
-
-        if playBoard[move] == ' ':
-            playBoard[move] = turn
-            count += 1
-        else:
-            print("That place is already filled.\nMove to which place?")
-            continue
-
-
-        if count >= 5:
-            if playBoard['7'] == playBoard['8'] == playBoard['9'] != ' ':
-                printBoard(playBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")                
-                break
-            elif playBoard['4'] == playBoard['5'] == playBoard['6'] != ' ':
-                printBoard(playBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break
-            elif playBoard['1'] == playBoard['2'] == playBoard['3'] != ' ': 
-                printBoard(playBoard)
-                print("\nGame Over.\n")            
-                print(" **** " +turn + " won. ****")
-                break
-            elif playBoard['1'] == playBoard['4'] == playBoard['7'] != ' ': 
-                printBoard(playBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break
-            elif playBoard['2'] == playBoard['5'] == playBoard['8'] != ' ':
-                printBoard(playBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break
-            elif playBoard['3'] == playBoard['6'] == playBoard['9'] != ' ':
-                printBoard(playBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break 
-            elif playBoard['7'] == playBoard['5'] == playBoard['3'] != ' ': 
-                printBoard(playBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break
-            elif playBoard['1'] == playBoard['5'] == playBoard['9'] != ' ': 
-                printBoard(playBoard)
-                print("\nGame Over.\n")                
-                print(" **** " +turn + " won. ****")
-                break 
-
-
-        if count == 9:
-            print("\nGame Over.\n")                
-            print("It's a Tie!!")
-
-
-        if turn =='X':
-            turn = 'O'
-        else:
-            turn = 'X'        
+    print(f"{board[6]}|{board[7]}|{board[8]}")
+    print()
     
+def is_a_draw(board):
+    for square in range(9):
+        if board[square] != "x" and board[square] != "o":
+            return False
+    return True 
+    
+def has_winner(board):
+    return (board[0] == board[1] == board[2] or
+            board[3] == board[4] == board[5] or
+            board[6] == board[7] == board[8] or
+            board[0] == board[3] == board[6] or
+            board[1] == board[4] == board[7] or
+            board[2] == board[5] == board[8] or
+            board[0] == board[4] == board[8] or
+            board[2] == board[4] == board[6])
 
-    restart = input("Do want to play Again?(y/n)")
-    if restart == "y" or restart == "Y":  
-        for key in board_keys:
-            playBoard[key] = " "
+def make_move(player, board):
+    square = int(input(f"{player}'s turn to choose a square (1-9): "))
+    board[square - 1] = player
 
-        ticTacToe()
+def next_player(current):
+    if current == "" or current == "o":
+        return "x"
+    elif current == "x":
+        return "o"
 
 if __name__ == "__main__":
-    ticTacToe()
+    main()
