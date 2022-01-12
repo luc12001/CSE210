@@ -1,6 +1,8 @@
 '''
+
 Tic-Tac-Toe: A Solution
 Author: Brandon Luce
+
 '''
 
 def main():
