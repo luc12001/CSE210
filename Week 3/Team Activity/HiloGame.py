@@ -56,18 +56,26 @@ class Director:
         If another input is put in it asks again.
         '''
         self.guess = input("Guess Higher or Lower? [h/l] ")
-        if len(self.guess) > 0:
-            if self.guess.lower() in ["h","l"]:
+        while len(self.guess) > 0:
+            if self.guess.lower() in ["h", "l"]:
                 return
+            else: 
+                self.guess.lower() != ["h", "l"]
+                print("Not a valid entry, try again")
+                self.guess = input("Guess Higher or Lower? [h/l] ")
 
     def again(self):
         '''
         Checks to see if user wants to play again.
         '''
         self.playAgain = input("Would you like to play again? [y/n] ")
-        if len(self.playAgain) > 0:
+        while len(self.playAgain) > 0:
             if self.playAgain.lower() in ["y","n"]:
                 return self.playAgain
+            else:
+                self.playAgain.lower() != ["y", "n"]
+                print("Not a valid entry, try again")
+                self.playAgain = input("Would you like to play again? [y/n] ")
                 
     def do_updates(self):
         '''
@@ -87,6 +95,9 @@ class Director:
             self.points += 100
             print("Your score so far is", self.points)
             print()
+            if self.points <= 0:
+                print("Game Over!")
+                quit()
             if self.again() == "y":
                 pass
             else:
@@ -97,6 +108,9 @@ class Director:
             self.points -= 75
             print("Your score so far is", self.points)
             print()
+            if self.points <= 0:
+                print("Game Over!")
+                quit()
             if self.again() == "y":
                 pass
             else:
@@ -107,6 +121,9 @@ class Director:
             self.points += 100
             print("Your score so far is", self.points)
             print()
+            if self.points <= 0:
+                print("Game Over!")
+                quit()
             if self.again() == "y":
                 pass
             else:
@@ -117,6 +134,9 @@ class Director:
             self.points -= 75
             print("Your score so far is", self.points)
             print()
+            if self.points <= 0:
+                print("Game Over!")
+                quit()
             if self.again() == "y":
                 pass
             else:
